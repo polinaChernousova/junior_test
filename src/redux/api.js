@@ -1,10 +1,14 @@
 import axios from "axios";
+import Loader from "../components/Loader";
 
 // ! posts
-export const fetchPostsAPI = async () => {
+export const fetchPostsAPI = async ({ page, pageSize }) => {
   try {
-    const response = await axios(`https://jsonplaceholder.typicode.com/posts`);
-    return response.data;
+    const response = await axios(
+      `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${pageSize}`
+    );
+    const totalPosts = response.headers["x-total-count"];
+    return { data: response.data, totalPosts };
   } catch (error) {
     throw new Error(error.message);
   }

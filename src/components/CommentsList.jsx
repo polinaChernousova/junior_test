@@ -12,14 +12,7 @@ function CommentsList({
   postId,
   handleOpenModal,
   isShow,
-  fetchCommentsRequest,
 }) {
-  useEffect(() => {
-    if (!postId) {
-      fetchCommentsRequest(postId);
-    }
-  }, [postId]);
-
   const individComments = comments.flatMap((commentArray) =>
     commentArray.filter((oneComm) => oneComm.postId === postId)
   );
@@ -32,6 +25,10 @@ function CommentsList({
     return <div>Error: {error}</div>;
   }
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Modal show={isShow} onHide={onHide}>
@@ -39,23 +36,19 @@ function CommentsList({
           <Modal.Title> Комментарии </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {loading ? (
-            <Loader />
-          ) : (
-            <>
-              {individComments.map((item) => (
-                <ul key={item.id} style={{ listStyleType: "none" }}>
-                  <li>
-                    <strong>Автор:</strong> {item.email}
-                  </li>
-                  <li>
-                    <strong> Комментарий: </strong>
-                    {item.body}
-                  </li>
-                </ul>
-              ))}
-            </>
-          )}
+          <>
+            {individComments.map((item) => (
+              <ul key={item.id} style={{ listStyleType: "none" }}>
+                <li>
+                  <strong>Автор:</strong> {item.email}
+                </li>
+                <li>
+                  <strong>Комментарий: </strong>
+                  {item.body}
+                </li>
+              </ul>
+            ))}
+          </>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHide}>
