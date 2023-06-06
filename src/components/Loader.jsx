@@ -1,7 +1,12 @@
-import React from "react";
+import { Container } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
-const Loader = () => {
-  return <div>Loader</div>;
-};
-
-export default Loader;
+export default function Loader() {
+  return (
+    <>
+      <Container style={{ display: "flex", justifyContent: "center" }}>
+        <Spinner animation="border" variant="secondary" />
+      </Container>
+    </>
+  );
+}
