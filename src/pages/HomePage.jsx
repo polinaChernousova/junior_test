@@ -1,7 +1,12 @@
 import React from "react";
+import PostList from "../components/PostList";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <>
+      <PostList />
+    </>
+  );
 };
 
 export default HomePage;
