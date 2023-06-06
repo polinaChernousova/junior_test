@@ -5,7 +5,7 @@ export default function Loader() {
   return (
     <>
       <Container style={{ display: "flex", justifyContent: "center" }}>
-        <Spinner animation="border" variant="secondary" />
+        <Spinner variant="secondary" animation="border" />
       </Container>
     </>
   );

@@ -5,6 +5,9 @@ import {
   FETCH_POSTS_FAILURE,
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
+  SET_PAGE,
+  SET_PAGE_SIZE,
+  SET_TOTAL_POSTS,
 } from "../utils/consts";
 
 export const fetchPostsRequest = (page, pageSize) => ({
@@ -36,4 +39,20 @@ export const fetchCommentsSuccess = (comments) => ({
 export const fetchCommentsFailure = (error) => ({
   type: FETCH_COMMENTS_FAILURE,
   payload: error,
+});
+
+// ! pagination
+export const setPage = (page) => ({
+  type: SET_PAGE,
+  payload: page,
+});
+
+export const setPageSize = (pageSize) => ({
+  type: SET_PAGE_SIZE,
+  payload: pageSize,
+});
+
+export const setTotalPosts = (totalPosts) => ({
+  type: SET_TOTAL_POSTS,
+  payload: totalPosts,
 });
