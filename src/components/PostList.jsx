@@ -21,15 +21,17 @@ const PostList = ({ posts, fetchPostsRequest, loading, error }) => {
   }
   return (
     <Container>
-      <Row
-        style={{
-          marginTop: "50px",
-          justifyContent: "center",
-        }}
-        md={4}
-      >
+      <Row>
         {posts?.map((post) => (
-          <Col key={post.id}>
+          <Col
+            md={4}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+            key={post.id}
+          >
             <CardPost key={post.id} post={post} />
           </Col>
         ))}

@@ -1,7 +1,12 @@
 import { all, call, put, takeEvery } from "redux-saga/effects";
-import { fetchPostsFailure, fetchPostsSuccess } from "./actions";
-import { fetchPostsAPI } from "./api";
-import { FETCH_POSTS_REQUEST } from "../utils/consts";
+import {
+  fetchCommentsFailure,
+  fetchCommentsSuccess,
+  fetchPostsFailure,
+  fetchPostsSuccess,
+} from "./actions";
+import { fetchCommentsAPI, fetchPostsAPI } from "./api";
+import { FETCH_COMMENTS_REQUEST, FETCH_POSTS_REQUEST } from "../utils/consts";
 
 export function* fetchPostsSaga() {
   try {
@@ -12,6 +17,16 @@ export function* fetchPostsSaga() {
   }
 }
 
+function* fetchCommentsSaga() {
+  try {
+    const comments = yield call(fetchCommentsAPI);
+    yield put(fetchCommentsSuccess(comments));
+  } catch (error) {
+    yield put(fetchCommentsFailure(error.message));
+  }
+}
+
 export default function* rootSaga() {
   yield takeEvery(FETCH_POSTS_REQUEST, fetchPostsSaga);
+  yield all([FETCH_COMMENTS_REQUEST, fetchCommentsSaga()]);
 }
