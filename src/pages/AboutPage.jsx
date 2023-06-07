@@ -1,12 +1,12 @@
 import React from "react";
-import { Container, NavLink } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const AboutMe = () => {
   return (
     <Container>
-      <Card>
+      <Card style={{ marginBottom: "50px" }}>
         <Card.Body>
           <Card.Title>Frontend Developer</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
@@ -48,20 +48,31 @@ const AboutMe = () => {
           <Card.Subtitle className="mb-2">Project</Card.Subtitle>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <NavLink
-                target="_blank"
-                href="https://github.com/polinaChernousova/project_makers_platforma"
-              >
-                marketplace
-              </NavLink>
+              <strong>marketplace</strong> - проект для студентов <br />
+              Интернет магазин с полным функционалом - авторизация и регистрация
+              на Firebase. CRUD - для админской части. Корзина на localStorage.
+              Фильтрация. Пагинация. Живой поиск. Переиспользование компонентов{" "}
+              <br />
+              <strong>Стек:</strong> React. Firebase. Context. Axios. MUI
+              <br />
             </ListGroup.Item>
             <ListGroup.Item>
-              <NavLink
-                target="_blank"
-                href="https://makers.courses/houses/KvEVKzaW7mTDQ4bkAiaR"
-              >
-                makers platform
-              </NavLink>
+              <strong>makers platform</strong> - образовательная платформа
+              <br />
+              Разработка и поддержка платформы обучения программированию.
+              <br />
+              <strong>Стек:</strong> React, Redux-Toolkit, TypeScript, Material
+              UI,GIT.
+              <br />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <strong>mentor profile</strong> - платформа для сотрудников
+              <br />
+              выполняла функционал для стягивания всех юзеров, на главную
+              страницу со всеми данными о менторе <br />
+              <strong>Стек:</strong> TypeScript/React, HTML/CSS, Sass/Less,
+              StoryBook, Redux Toolkit
+              <br />
             </ListGroup.Item>
           </ListGroup>
         </Card.Body>

@@ -10,7 +10,12 @@ import {
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Loader from "./Loader";
-import { fetchPostsRequest, setPage, setPageSize } from "../redux/actions";
+import {
+  fetchPostsRequest,
+  setPage,
+  setPageSize,
+  sortPostsByTitle,
+} from "../redux/actions";
 import CardPost from "./CardPost";
 
 const PostList = ({
@@ -22,6 +27,8 @@ const PostList = ({
   pageSize,
   page,
   setPage,
+  isSorted,
+  sortPostsByTitle,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(false);
@@ -52,6 +59,12 @@ const PostList = ({
     setSearchResults(posts);
   };
 
+  // !sort
+  function handleSortByTitle() {
+    if (!isSorted) {
+      sortPostsByTitle();
+    }
+  }
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -81,16 +94,19 @@ const PostList = ({
             )}
           </InputGroup>
         </Col>
+        <Button onClick={handleSortByTitle}>Sort by Title</Button>
       </Row>
-      <Row
-        style={{
-          marginTop: "50px",
-          justifyContent: "center",
-        }}
-        md={4}
-      >
+      <Row>
         {(searchResults || posts)?.map((post) => (
-          <Col key={post.id}>
+          <Col
+            md={4}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+            key={post.id}
+          >
             <CardPost key={post.id} post={post} />
           </Col>
         ))}
@@ -141,6 +157,7 @@ const mapStateToProps = (state) => ({
   page: state.page,
   pageSize: state.pageSize,
   totalPosts: state.totalPosts,
+  isSorted: state.isSorted,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -148,6 +165,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchPostsRequest(page, pageSize)),
   setPage: (page) => dispatch(setPage(page)),
   setPageSize: (pageSize) => dispatch(setPageSize(pageSize)),
+  sortPostsByTitle: () => dispatch(sortPostsByTitle()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList);

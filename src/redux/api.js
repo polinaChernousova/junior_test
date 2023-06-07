@@ -1,5 +1,4 @@
 import axios from "axios";
-import Loader from "../components/Loader";
 
 // ! posts
 export const fetchPostsAPI = async ({ page, pageSize }) => {
@@ -33,6 +32,24 @@ export const fetchCommentsAPI = async () => {
 
     const comments = await Promise.all(commentsPromises);
     return comments;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// ! onePost
+export const fetchOnePostAPI = async (userId) => {
+  try {
+    const [postResponse, userResponse] = await Promise.all([
+      axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`),
+      axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`),
+    ]);
+
+    const onePost = postResponse.data;
+    const oneUser = userResponse.data;
+
+    return { onePost, oneUser };
   } catch (error) {
     console.log(error);
     throw error;
