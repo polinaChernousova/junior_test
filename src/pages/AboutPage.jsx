@@ -59,7 +59,7 @@ const AboutMe = () => {
             <ListGroup.Item>
               <strong>makers platform</strong> - образовательная платформа
               <br />
-              Разработка и поддержка платформы обучения программированию.
+              Разработка и поддержка платформы для обучения программированию.
               <br />
               <strong>Стек:</strong> React, Redux-Toolkit, TypeScript, Material
               UI,GIT.
@@ -68,7 +68,7 @@ const AboutMe = () => {
             <ListGroup.Item>
               <strong>mentor profile</strong> - платформа для сотрудников
               <br />
-              выполняла функционал для стягивания всех юзеров, на главную
+              Выполняла функционал для стягивания всех юзеров, на главную
               страницу со всеми данными о менторе <br />
               <strong>Стек:</strong> TypeScript/React, HTML/CSS, Sass/Less,
               StoryBook, Redux Toolkit
