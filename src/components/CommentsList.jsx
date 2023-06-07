@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchCommentsRequest } from "../redux/actions";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Loader from "./Loader";
@@ -66,6 +64,4 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, {
-  fetchCommentsRequest,
-})(CommentsList);
+export default connect(mapStateToProps, {})(CommentsList);

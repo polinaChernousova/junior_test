@@ -16,7 +16,7 @@ function CardPost({ post }) {
   };
   return (
     <Card style={{ width: "18rem", margin: "10px" }}>
-      <NavLink to={`/details/`}>
+      <NavLink to={`/details/${post.userId}`}>
         <OverlayTrigger overlay={<Tooltip id={"top"}>Подробнее</Tooltip>}>
           <Card.Img
             style={{ height: "200px", objectFit: "cover" }}
@@ -25,7 +25,14 @@ function CardPost({ post }) {
           />
         </OverlayTrigger>
       </NavLink>
-      <Card.Body style={{ height: "270px" }}>
+      <Card.Body
+        style={{
+          height: "290px",
+          whiteSpace: "wrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
+      >
         <Card.Title>{post.title}</Card.Title>
         <Card.Text>{post.body}</Card.Text>
       </Card.Body>

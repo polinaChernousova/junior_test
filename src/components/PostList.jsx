@@ -1,10 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Container, Pagination } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  InputGroup,
+  Pagination,
+} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Loader from "./Loader";
-import { fetchPostsRequest, setPage, setPageSize } from "../redux/actions";
+import {
+  fetchPostsRequest,
+  setPage,
+  setPageSize,
+  sortPostsByTitle,
+} from "../redux/actions";
 import CardPost from "./CardPost";
 
 const PostList = ({
@@ -16,7 +27,11 @@ const PostList = ({
   pageSize,
   page,
   setPage,
+  isSorted,
+  sortPostsByTitle,
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState(false);
   const totalPages = Math.ceil(totalPosts / pageSize);
 
   useEffect(() => {
@@ -28,6 +43,28 @@ const PostList = ({
     setPage(newPage);
   };
 
+  // ! live search
+
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    const filteredPosts = posts.filter((post) => {
+      return post.title.toLowerCase().includes(value.toLowerCase());
+    });
+    setSearchResults(filteredPosts);
+  };
+
+  const handleClear = () => {
+    setSearchTerm("");
+    setSearchResults(posts);
+  };
+
+  // !sort
+  function handleSortByTitle() {
+    if (!isSorted) {
+      sortPostsByTitle();
+    }
+  }
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -37,8 +74,30 @@ const PostList = ({
   }
   return (
     <Container>
+      <Row md={6}>
+        <Col>
+          <InputGroup>
+            <Form.Control
+              type="text"
+              value={searchTerm}
+              onChange={handleSearch}
+              placeholder="Search by title"
+            />
+            {searchTerm && (
+              <Button onClick={handleClear}>
+                <img
+                  width="15"
+                  src="https://img.icons8.com/?size=512&id=111057&format=png"
+                  alt=""
+                />
+              </Button>
+            )}
+          </InputGroup>
+        </Col>
+        <Button onClick={handleSortByTitle}>Sort by Title</Button>
+      </Row>
       <Row>
-        {posts?.map((post) => (
+        {(searchResults || posts)?.map((post) => (
           <Col
             md={4}
             style={{
@@ -98,6 +157,7 @@ const mapStateToProps = (state) => ({
   page: state.page,
   pageSize: state.pageSize,
   totalPosts: state.totalPosts,
+  isSorted: state.isSorted,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -105,6 +165,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchPostsRequest(page, pageSize)),
   setPage: (page) => dispatch(setPage(page)),
   setPageSize: (pageSize) => dispatch(setPageSize(pageSize)),
+  sortPostsByTitle: () => dispatch(sortPostsByTitle()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList);
